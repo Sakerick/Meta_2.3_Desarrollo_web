@@ -7,7 +7,7 @@ a<template>
         </v-row>
 
         <v-row>
-          <v-col cols="12" md="5">
+          <v-col cols="12" md="4">
             <MovieSearch
               @search-movies="handleSearch"
               @clear-results="handleClear"
@@ -42,7 +42,7 @@ a<template>
     </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { searchMovies, getMovieDetails } from '@/services/movieApi.js'
 import MovieSearch from '@/components/MovieSearch.vue'
 import MovieList from '@/components/MovieList.vue'
@@ -97,4 +97,15 @@ const handleClear = () => {
   selectedMovie.value = null
   error.value = ''
 }
+
+// Hook Watch: Observa si hay errores y limpia la consola después de 5 segundos
+watch(error, (newError) => {
+  if (newError) {
+    setTimeout(() => { error.value = '' }, 5000)
+  }
+})
+
+onMounted(() => {
+  console.log("Buscador de películas inicializado correctamente.")
+})
 </script>
