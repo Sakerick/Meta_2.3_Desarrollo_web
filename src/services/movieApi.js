@@ -1,19 +1,33 @@
+import axios from 'axios'
+
 const API_KEY = import.meta.env.VITE_OMDB_API_KEY
-const BASE_URL = 'https://www.omdbapi.com/';
+const BASE_URL = 'https://www.omdbapi.com/'
+
+const api = axios.create({
+  baseURL: BASE_URL,
+  params: {
+    apikey: API_KEY
+  }
+})
 
 export const searchMovies = async (params) => {
-  const url = new URL(BASE_URL);
-  url.searchParams.append('apikey', API_KEY);
-  url.searchParams.append('s', params.query);
-  url.searchParams.append('type', params.type || 'movie');
-  
-  const response = await fetch(url);
-  if (!response.ok) throw new Error('Error en la red');
-  return await response.json();
-};
+  const response = await api.get('', {
+    params: {
+      s: params.query,
+      type: params.type || 'movie',
+      y: params.year || '',
+      page: params.page || 1
+    }
+  })
+  return response.data
+}
 
 export const getMovieDetails = async (imdbID) => {
-  const response = await fetch(`${BASE_URL}?apikey=${API_KEY}&i=${imdbID}&plot=full`);
-  if (!response.ok) throw new Error('Error al obtener detalles');
-  return await response.json();
-};
+  const response = await api.get('', {
+    params: {
+      i: imdbID,
+      plot: 'full'
+    }
+  })
+  return response.data
+}
