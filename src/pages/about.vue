@@ -7,5 +7,7 @@
     <p class="text-h6 text-grey">Versión 1.0.2</p>
     <v-divider class="my-6"></v-divider>
     <p>Aplicación desarrollada para práctica de eventos personalizados y consumo de APIs en Vue 3.</p>
+    <p>Realizado por 1190154 Vizcarra Macias Herick Gerardo.</p>
+    <p>Todos los derechos reservados.</p>
   </v-container>
 </template>
